@@ -189,7 +189,7 @@ class App:
         # SET GUI ELEMENTS
         #----------------------------------------------------------------------
 
-        root.geometry("1200x1024+0+0")
+        root.geometry("1280x1024+0+0")
         root.configure(background="black")
         root.columnconfigure(0, weight=1)
         root.rowconfigure(0, weight=1)

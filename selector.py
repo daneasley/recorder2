@@ -139,7 +139,7 @@ class App:
         # SET GUI ELEMENTS
         #----------------------------------------------------------------------
 
-        root.geometry("1200x1024+0+0")
+        root.geometry("1280x1024+0+0")
         root.configure(background="black")
         root.columnconfigure(0, weight=1)
         root.rowconfigure(0, weight=1)
@@ -175,7 +175,7 @@ class App:
                     select_button.grid(row=r, column=0, ipadx=5, ipady=5, padx=5, pady=5, sticky='nsew')
                 else:
                     label_text = title
-                    label = tk.Label(listframe, font=('times', 24, 'bold'), text=label_text)
+                    label = tk.Label(listframe, font=('times', 18, 'bold'), text=label_text, foreground='white', background='black')
                     label.grid(row=r, column=0, ipadx=5, ipady=5, padx=7, pady=5, sticky='nsew')
                 r = r + 1
 
