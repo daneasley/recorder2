@@ -42,7 +42,7 @@ class Recorder(Thread):
         self.e.command("int-log-history")
         self.e.command("cs-add rec_chainsetup")
         self.e.command("c-add 1st_chain")
-        self.e.command('cs-set-audio-format 16,2,44100')
+        self.e.command('cs-set-audio-format 16,1,44100')
         self.e.command("cs-option -G:jack,cutrecorder,notransport")
         self.e.command("ai-add jack,system")
         print "Recording System Initialized."
@@ -55,6 +55,9 @@ class Recorder(Thread):
             self.e.command(fileconnector)
             self.e.command("cs-connect")
             self.e.command("start")
+            time.sleep(0.25)
+            call("jack_connect system:capture_2 cutrecorder:in_1", shell = True)
+            time.sleep(0.25)
             print "Recording Started."
             status_text.set('RECORDING ' + cut_title)
             record_button_label.set('pause')
@@ -70,11 +73,8 @@ class Recorder(Thread):
         self.e.command("stop")
         print "Recording Stopped."
         time.sleep(2)
-        status_text.set('Making file monaural.')
         call(["cp", temporary_file + cut_filename, "temp-toconvert.pcm"])
-        call("sox -t raw -b 16 -e signed-integer -r 44100 -c 2 temp-toconvert.pcm " + temporary_file + cut_filename + " channels 1", shell = True)
-        status_text.set('Copying to final destination.')
-        call(["cp", temporary_file + cut_filename, cut_filepath])
+        call("sox -t raw -b 16 -e signed-integer -r 44100 -c 1 temp-toconvert.pcm " + cut_filepath, shell = True)
         status_text.set('Recording Saved.')
         print "Recording Saved to ", cut_filepath
         tkMessageBox.showinfo("Recording Saved", "Recording Finished and Saved.")

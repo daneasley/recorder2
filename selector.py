@@ -209,7 +209,7 @@ class App:
             status_text.set('Ready to record.')
             commandstring = "./recorder2.py " + cut_directory + " " + cut_filename + " " + cut_number + " " + cut_duration + ' "' + cut_title + '"'
             print commandstring
-            subprocess.Popen("jackd -R -dalsa -r44100 -p1024 -n3 -Phw:USB,0 -Chw:USB,0", shell=True)
+            subprocess.Popen("jackd -R -S -dalsa -r44100 -p1024 -n3 -Phw:USB,0 -Chw:USB,0", shell=True)
             time.sleep(1)
             subprocess.call(commandstring, shell=True)
             subprocess.call("killall jackd", shell=True)
