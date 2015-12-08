@@ -139,11 +139,19 @@ class App:
         # SET GUI ELEMENTS
         #----------------------------------------------------------------------
 
+        def ignoreit(self):
+            print "click ignored"
+            return "break"
+
         root.geometry("1278x1000+0+0")
         root.configure(background="black")
         root.columnconfigure(0, weight=1)
         root.rowconfigure(0, weight=1)
         root.title("Recorder")
+        root.bind("<Double-Button-1>", ignoreit)
+        root.bind("<Button-2>", ignoreit)
+        root.bind("<Button-3>", ignoreit)
+        
 
         # list frame (left half of window)
         #----------------------------------------------------------------------
@@ -213,8 +221,9 @@ class App:
             time.sleep(1)
             subprocess.call(commandstring, shell=True)
             subprocess.call("killall jackd", shell=True)
+            sys.exit()
         else:
-            return
+            return "break"
 
 # Instantiate!
 #----------------------------------------------------------------------
